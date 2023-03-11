@@ -1,0 +1,4 @@
+Description du projet :
+Le projet est une application web développée avec Laravel et Bootstrap en utilisant un template AdminLTE pour l'interface utilisateur. L'objectif principal de cette application est de permettre la gestion des informations des étudiants, à savoir leur nom, adresse, numéro de téléphone, courriel et date de naissance, ainsi que leur ville d'origine.
+Les fonctionnalités principales de cette application sont les opérations CRUD qui permettent d'ajouter, de lister, de modifier et de supprimer des étudiants. Les villes sont également gérées via une relation avec le modèle Etudiant en utilisant la relation "ville has many étudiants".
+Le projet consiste donc à intégrer un template AdminLTE dans Laravel, à créer une interface utilisateur qui permet de gérer les informations des étudiants et à établir la relation entre les villes et les étudiants.
