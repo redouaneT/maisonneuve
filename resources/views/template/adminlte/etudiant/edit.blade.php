@@ -32,21 +32,41 @@
                             <label for="exampleInputEmail1">Nom</label>
                             <input type="text" class="form-control" id="exampleInputEmail1" name="nom"
                                 value="{{ $etudiant->nom }}" placeholder="Entrer le nom">
+                            @if ($errors->has('nom'))
+                                <div class="text-danger mt-1">
+                                    {{ $errors->first('nom') }}
+                                </div>                                
+                            @endif
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Email:</label>
                             <input type="email" class="form-control" id="exampleInputPassword1"
                                 value="{{ $etudiant->email }}" name="email" placeholder="Enter le courriel">
+                            @if ($errors->has('email'))
+                                <div class="text-danger mt-1">
+                                    {{ $errors->first('email') }}
+                                </div>                                
+                            @endif
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Adresse:</label>
                             <input type="text" class="form-control" id="exampleInputPassword1"
                                 value="{{ $etudiant->adresse }}" name="adresse" placeholder="Enter l'adresse">
+                            @if ($errors->has('adresse'))
+                                <div class="text-danger mt-1">
+                                    {{ $errors->first('adresse') }}
+                                </div>                                
+                            @endif
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Téléphone:</label>
                             <input type="text" class="form-control" id="exampleInputPassword1"
                                 value="{{ $etudiant->phone }}"  name="phone" placeholder="Enter téléphone">
+                            @if ($errors->has('phone'))
+                                <div class="text-danger mt-1">
+                                    {{ $errors->first('phone') }}
+                                </div>                                
+                            @endif
                         </div>
                         <div class="form-group">
                             <label>Date de naissance:</label>
@@ -58,6 +78,11 @@
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
                             </div>
+                            @if ($errors->has('date_de_naissance'))
+                                <div class="text-danger mt-1">
+                                    {{ $errors->first('date_de_naissance') }}
+                                </div>                                
+                            @endif
                         </div>
                         <div class="form-group" data-select2-id="58">
                             <label>Ville:</label>
@@ -72,6 +97,11 @@
                                     @endif
                                 @endforeach
                             </select>
+                            @if ($errors->has('ville'))
+                            <div class="text-danger mt-1">
+                                {{ $errors->first('ville') }}
+                            </div>                                
+                            @endif
                         </div>
                     </div>
 

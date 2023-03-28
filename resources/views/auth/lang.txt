@@ -1,0 +1,31 @@
+login :
+
+eng;
+Sign in to start your session
+
+Email
+
+Password
+
+Remember Me
+
+Sign In
+
+I forgot my password
+
+Register a new membership
+fr;
+
+Connectez-vous pour commencer votre session
+
+E-mail
+
+Mot de passe
+
+Se souvenir de moi
+
+Se connecter
+
+J'ai oublié mon mot de passe
+
+Créer un nouveau compte

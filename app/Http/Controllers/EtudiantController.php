@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Etudiant;
 use App\Models\Ville;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EtudiantController extends Controller
 {
@@ -38,14 +39,19 @@ class EtudiantController extends Controller
      */
     public function store(Request $request)
     {
-        $etudiant = Etudiant::create([
-            'nom' => $request->nom,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'date_de_naissance' => $request->date_de_naissance,
-            'adresse' => $request->adresse,
-            'ville_id' => $request->ville_id,
+        $request->validate([
+            'nom' => 'required|max:30',
+            'phone' => 'required',
+            'date_de_naissance' => 'required|date',
+            'adresse' => 'required',
+            'ville_id' => 'required|integer',
         ]);
+
+        $request['user_id'] = Auth::user()->id;
+   
+        $etudiant = new Etudiant;
+        $etudiant->fill($request->all());
+        $etudiant->save();
 
         return redirect(route('etudiant.show', $etudiant->id))->withSuccess("L'étudiant a bien été ajouté");
     }
@@ -82,14 +88,18 @@ class EtudiantController extends Controller
      */
     public function update(Request $request, Etudiant $etudiant)
     {
-        $etudiant->update([
-            'nom' => $request->nom,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'date_de_naissance' => $request->date_de_naissance,
-            'adresse' => $request->adresse,
-            'ville_id' => $request->ville_id,
+        $request->validate([
+            'nom' => 'required|max:30',
+            'email' => 'required|email|unique:etudiants',
+            'phone' => 'required',
+            'date_de_naissance' => 'required|date',
+            'adresse' => 'required',
+            'ville_id' => 'required|integer',
         ]);
+
+        $etudiant->fill($request->all());
+
+        $etudiant->update();
 
         return redirect(route('etudiant.show', $etudiant))->withSuccess("L'étudiant a bien été modifié");
     }

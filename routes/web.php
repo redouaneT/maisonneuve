@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CustomAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,8 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
 
 Route::get('/etudiant/index', [EtudiantController::class, 'index'])->name('etudiant.index');
@@ -27,3 +28,10 @@ Route::put('etudiant/edit/{etudiant}', [EtudiantController::class, 'update'])->n
 Route::delete('etudiant/edit/{etudiant}', [EtudiantController::class, 'destroy'])->name('etudiant.delete');
 route::get('/etudiant/show/{etudiant}', [EtudiantController::class, 'show'])->name('etudiant.show');
 
+// Auth::routes();
+
+Route::get('registration', [CustomAuthController::class, 'create'])->name('user.registration');
+Route::post('registration', [CustomAuthController::class, 'store']);
+Route::get('login', [CustomAuthController::class, 'index'])->name('login');
+Route::post('login', [CustomAuthController::class, 'authentication']);
+Route::get('logout', [CustomAuthController::class, 'logout'])->name('logout')->middleware('auth');

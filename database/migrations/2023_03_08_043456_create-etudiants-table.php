@@ -21,8 +21,10 @@ class CreateEtudiantsTable extends Migration
             $table->string('email')->unique();
             $table->date('date_de_naissance');
             $table->unsignedBigInteger('ville_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
             $table->foreign('ville_id')->references('id')->on('villes');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

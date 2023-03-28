@@ -7,6 +7,12 @@
     <div class="row">
         <div class="col-md-12 mt-5 mb-5">
             <section class="content-header">
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{ session('success') }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">

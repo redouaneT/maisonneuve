@@ -26,14 +26,19 @@
     <div class="wrapper">
         <!-- Header adminlte -->
         @include('components.adminlte.navbar')
-        <!-- Sidebar adminlte -->
-        @include('components.adminlte.sidebar')
+
+        @if(Auth::check())
+            <!-- Sidebar adminlte -->
+            @include('components.adminlte.sidebar')
+        @endif
         <!-- Content adminlte -->
-        <div class="content-wrapper">
+        <div class="content-wrapper @if(!Auth::check()) mx-0 @endif">
             @yield('content')
         </div>
-        <!-- Footer adminlte -->
-        @include('components.adminlte.footer')
+        @if(Auth::check())
+            <!-- Footer adminlte -->
+            @include('components.adminlte.footer')
+        @endif
     </div>
 
     <!-- Scripts adminlte -->
