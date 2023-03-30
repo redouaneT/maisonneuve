@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
             $etudiant = \App\Models\Etudiant::factory()->make();
             $user->etudiant()->save($etudiant);
         });
+        $this->call(RolesAndPermissionsSeeder::class);
     }
 }
