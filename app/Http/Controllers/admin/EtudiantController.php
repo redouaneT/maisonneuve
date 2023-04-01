@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Models\Etudiant;
 use App\Models\Ville;
-use App\Models\Role;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -19,7 +17,8 @@ class EtudiantController extends Controller
      */
     public function index()
     {
-
+        $etudiants = Etudiant::with('ville')->simplePaginate(10);
+        return view('template/adminlte/admin/etudiant/index', ['etudiants' => $etudiants]);
     }
 
     /**
@@ -30,7 +29,7 @@ class EtudiantController extends Controller
     public function create()
     {
         $villes = Ville::all();
-        return view('template/adminlte/etudiant/create', ['villes' => $villes]);
+        return view('template/adminlte/admin/etudiant/create', ['villes' => $villes]);
     }
 
     /**
@@ -48,24 +47,15 @@ class EtudiantController extends Controller
             'adresse' => 'required',
             'ville_id' => 'required|integer',
         ]);
-    
+
         $request['user_id'] = Auth::user()->id;
-    
+   
         $etudiant = new Etudiant;
         $etudiant->fill($request->all());
         $etudiant->save();
-    
-        // Assign the 'student' role to the new user
-        $studentRole = Role::where('name', 'student')->first();
-        if ($studentRole) {
-            $user = Auth::User();
-            $user->role_id = $studentRole->id;
-            $user->save();
-        }
-    
-        return redirect(route('home'));
+
+        return redirect(route('admin.etudiant.show', $etudiant->id))->withSuccess("L'étudiant a bien été ajouté");
     }
-    
 
     /**
      * Display the specified resource.
@@ -75,7 +65,7 @@ class EtudiantController extends Controller
      */
     public function show(Etudiant $etudiant)
     {
-        return view('template/adminlte/etudiant/show', ['etudiant' => $etudiant]);
+        return view('template/adminlte/admin/etudiant/show', ['etudiant' => $etudiant]);
     }
 
     /**
@@ -86,8 +76,9 @@ class EtudiantController extends Controller
      */
     public function edit(Etudiant $etudiant)
     {
+     
         $villes = Ville::all();
-        return view('template/adminlte/etudiant/edit', ['etudiant' => $etudiant, 'villes' => $villes]);
+        return view('template/adminlte/admin/etudiant/edit', ['etudiant' => $etudiant, 'villes' => $villes]);
     }
 
     /**
@@ -99,20 +90,24 @@ class EtudiantController extends Controller
      */
     public function update(Request $request, Etudiant $etudiant)
     {
+      
         $request->validate([
             'nom' => 'required|max:30',
-            'email' => 'required|email|unique:etudiants',
+            'email' => 'required|email',
             'phone' => 'required',
             'date_de_naissance' => 'required|date',
             'adresse' => 'required',
             'ville_id' => 'required|integer',
         ]);
 
+
         $etudiant->fill($request->all());
+
+    
 
         $etudiant->update();
 
-        return redirect(route('etudiant.show', $etudiant))->withSuccess("Les modifications ont été bien appliquées");
+        return redirect(route('admin.etudiant.show', $etudiant))->withSuccess("L'étudiant a bien été modifié");
     }
 
     /**
@@ -124,6 +119,6 @@ class EtudiantController extends Controller
     public function destroy(Etudiant $etudiant)
     {
         $etudiant->delete();
-        return redirect(route('etudiant.index'))->withSuccess("L'étudiant a bien été supprimer");
+        return redirect(route('admin.etudiant.index'))->withSuccess("L'étudiant a bien été supprimer");
     }
 }

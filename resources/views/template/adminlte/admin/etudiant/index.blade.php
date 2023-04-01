@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Home')
+@section('title', 'Voir les étudiants')
 @section('content')
 <div class="content">
 
@@ -28,7 +28,6 @@
                 </div>
             </section>
             <section class="content">
-
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Liste des étudiants</h3>
@@ -91,18 +90,18 @@
                                         </td>
                                         <td class="panel-control">
                                             <a class="btn btn-primary btn-sm"
-                                                href="{{ route('etudiant.show', $etudiant->id) }}">
+                                                href="{{ route('admin.etudiant.show', $etudiant->id) }}">
                                                 <i class="fas fa-folder">
                                                 </i>
                                                 Voir
                                             </a>
                                             <a class="btn btn-info btn-sm"
-                                                href="{{ route('etudiant.edit', $etudiant->id) }}">
+                                                href="{{ route('admin.etudiant.edit', $etudiant->id) }}">
                                                 <i class="fas fa-pencil-alt">
                                                 </i>
                                                 Moddifier
                                             </a>
-                                            <form action="{{ route('etudiant.delete', $etudiant->id)}}" method="POST">
+                                            <form action="{{ route('admin.etudiant.delete', $etudiant->id)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm">Spprimer</button>

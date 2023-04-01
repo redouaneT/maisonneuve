@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Models\Ville;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller; 
 
 class VilleController extends Controller
 {

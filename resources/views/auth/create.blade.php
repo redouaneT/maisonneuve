@@ -6,7 +6,7 @@
 <div class="content d-flex justify-content-center align-items-center pt-5">
     <div class="signup-box">
         <div class="login-logo">
-            <a href="{{ route('home', ['id' => 1]) }}"><b>Forum Maisonneuve</b></a>
+            {{-- <a href="{{ route('public.dashboard', ['id' => 1]) }}"><b>Forum Maisonneuve</b></a> --}}
         </div>
         <div class="card">
             <div class="card-body signup-card-body">

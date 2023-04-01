@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Créer profil étudiant')
+@section('title', 'Ajouter un étudiant')
 @section('content')
 <div class="content-header">
  
@@ -9,11 +9,71 @@
         <div class="col-md-6 mx-auto mt-5 mb-5">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Veuillez compléter votre profil pour accéder aux fonctionnalités du site.</h3>
+                    <h3 class="card-title">Ajouter un étudiant</h3>
                 </div>
                 <form method="post">
                     @csrf
                     <div class="card-body">
+                        <div class="d-flex flex-column  mb-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="username" placeholder="Username" value="{{ old('username') }}">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-envelope"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            @if ($errors->has('username'))
+                                <div class="text-danger mt-1">
+                                    {{ $errors->first('username') }}
+                                </div>                                
+                            @endif
+                        </div>
+                        <div class="d-flex flex-column  mb-3">
+                            <div class="input-group">
+                                <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-envelope"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            @if ($errors->has('email'))
+                                <div class="text-danger mt-1">
+                                    {{ $errors->first('email') }}
+                                </div>                                
+                            @endif
+                        </div>
+                        <div class="d-flex flex-column  mb-3">
+                            <div class="input-group ">
+                                <input type="password" class="form-control" name="password" placeholder="Mot de passe">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-lock"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            @if ($errors->has('password'))
+                                <div class="text-danger mt-1">
+                                    {{ $errors->first('password') }}
+                                </div>                                
+                            @endif
+                        </div>
+                        <div class="d-flex flex-column  mb-3">
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirmer le mot de passe">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-lock"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            @if ($errors->has('password_confirmation'))
+                                <div class="text-danger mt-1">
+                                    {{ $errors->first('password_confirmation') }}
+                                </div>                                
+                            @endif
+                        </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nom</label>
                             <input type="text" class="form-control" id="exampleInputEmail1" name="nom"
@@ -24,6 +84,7 @@
                                 </div>                                
                             @endif
                         </div>
+              
                         <div class="form-group">
                             <label for="exampleInputPassword1">Adresse:</label>
                             <input type="text" class="form-control" id="exampleInputPassword1" name="adresse"

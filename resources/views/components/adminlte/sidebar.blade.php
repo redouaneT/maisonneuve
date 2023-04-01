@@ -17,7 +17,11 @@
           <img src="{{asset('adminlte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a class="navbar-brand d-block" href="{{route("home")}}">{{Auth::user() ? Auth::user()->username : 'Guest'}}</a>
+            {{-- @if (Auth::check() && Auth::user()->hasRole('admin'))
+                <a class="navbar-brand d-block" href="{{route("admin.home")}}">{{Auth::user() ? Auth::user()->username : 'Guest'}}</a>
+            @else
+                <a class="navbar-brand d-block" href="{{route("student.home")}}">{{Auth::user() ? Auth::user()->username : 'Guest'}}</a>
+            @endif --}}
         </div>
       </div>
   
@@ -26,9 +30,9 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            @if(Auth::check() && Auth::user()->username == 'admin')
-                <!-- user manager for admin -->
-                <li class="nav-item menu-open">
+            @can('isAdmin', auth()->user())
+                 <!-- user manager for admin -->
+                 <li class="nav-item menu-open">
                     <a href="#" class="nav-link active">
 
                     <i class="nav-icon fas fa-graduation-cap"></i>
@@ -39,20 +43,20 @@
                     </a>
                     <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{route('etudiant.index')}}" class="nav-link active">
+                        <a href="{{route('admin.etudiant.index')}}" class="nav-link active">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Liste des étudiants</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('etudiant.create')}}" class="nav-link">
+                        <a href="{{route('admin.etudiant.create')}}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Ajouter un étudiants</p>
                         </a>
                     </li>
                     </ul>
                 </li>
-            @endif
+            @endcan
              <!-- Posts manager -->
              <li class="nav-item menu-open">
                 <a href="#" class="nav-link active">
@@ -65,13 +69,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="#" class="nav-link active">
+                    <a href="{{route('articles.create')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Rédiger un article</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('articles.my')}}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Voir mes articles</p>
                     </a>

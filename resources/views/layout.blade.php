@@ -28,13 +28,25 @@
         @include('components.adminlte.navbar')
 
         @if(Auth::check())
-            <!-- Sidebar adminlte -->
-            @include('components.adminlte.sidebar')
+            @canany(['isAdmin', 'isStudent'], auth()->user())
+                <!-- Sidebar adminlte -->
+                @include('components.adminlte.sidebar')
+            @endcanany
         @endif
+  
         <!-- Content adminlte -->
-        <div class="content-wrapper @if(!Auth::check()) mx-0 @endif">
-            @yield('content')
-        </div>
+
+        @canany(['isAdmin', 'isStudent'], auth()->user())
+            <div class="content-wrapper">
+                @yield('content')
+            </div>
+        @else
+            <div class="content-wrapper mx-0">
+                @yield('content')
+            </div>
+        @endcanany
+     
+       
         @if(Auth::check())
             <!-- Footer adminlte -->
             @include('components.adminlte.footer')

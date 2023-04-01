@@ -53,9 +53,9 @@
                                     <b>Ville</b> <a class="float-right">{{ $etudiant->ville->nom }}</a>
                                 </li>
                             </ul>
-                            <a href="{{ route('etudiant.edit', $etudiant->id) }}"
+                            <a href="{{ route('admin.etudiant.edit', $etudiant->id) }}"
                                 class="btn btn-primary btn-block mb-1"><b>Moddifier</b></a>
-                            <form action="{{ route('etudiant.delete', $etudiant->id) }}" method="POST">
+                            <form action="{{ route('admin.etudiant.delete', $etudiant->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-primary btn-danger btn-block"><b>Spprimer</b></button>

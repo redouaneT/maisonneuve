@@ -14,7 +14,7 @@ class Etudiant extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['nom', 'email', 'phone', 'date_de_naissance', 'adresse', 'ville_id'];
+    protected $fillable = ['nom', 'phone', 'date_de_naissance', 'adresse', 'ville_id', 'user_id'];
 
     /**
      * Get the ville that owns the Etudiant

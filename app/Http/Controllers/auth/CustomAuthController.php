@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\auth;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class CustomAuthController extends Controller
 {
@@ -54,7 +55,15 @@ class CustomAuthController extends Controller
         // Log in the user
         Auth::login($user);
 
-        // Redirect the user to the student information form
+        // Check the user's role and redirect to the appropriate route
+        if ($user->role !== null) {
+            if ($user->role->name === 'admin') {
+                // Redirect the admin user to the admin dashboard
+                return redirect(route('admin.student.index'))->withSuccess("L'utilisateur a bien été ajouté");
+            } 
+        }
+
+        // Redirect the user without a role to a default route
         return redirect(route('etudiant.create'));
     }
 
@@ -124,11 +133,23 @@ class CustomAuthController extends Controller
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
      
         Auth::login($user);
-     
-       
-        return redirect()->intended(route('home'));
 
-        // return  $credentials;
+        $role = auth()->user()->role;
+
+        // Check the user's role and redirect to the appropriate route
+
+        if ($role !== null) {
+            if ($role->name === 'admin') {
+                // The user is an admin
+                return redirect()->intended(route('admin.home'));
+            } elseif ($role->name === 'student') {
+                // The user is a student
+                return redirect()->intended(route('home'));
+            }
+        } else {
+            return redirect()->intended(route('etudiant.create'));
+        }
+
     }
 
     public function logout(){

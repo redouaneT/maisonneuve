@@ -2,16 +2,23 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-light @if(!Auth::check()) mx-0 @endif">
     <!-- Left navbar links -->
     <ul class="navbar-nav ">
-        @if(Auth::check())
-            <!-- Sidebar toggle button-->
-            <li class="nav-item">
+
+        @canany(['isAdmin', 'isStudent'], auth()->user())
+               <!-- Sidebar toggle button-->
+               <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
-        @endif
+        @endcanany
 
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('home') }}" class="nav-link">Home</a>
+            @can('isAdmin', auth()->user())
+                <a href="{{ route('admin.home') }}" class="nav-link">Home</a>
+            @elsecan('isStudent', auth()->user())
+                <a href="{{ route('home') }}" class="nav-link">Home</a>
+            @endcan
         </li>
+            
+
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
         </li>
@@ -47,24 +54,30 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         @if(Auth::check())
-            <!-- Username -->
-            <li class="nav-item d-none d-sm-inline-block">
-                <a class="navbar-brand" href="{{route("home")}}">{{Auth::user() ? Auth::user()->username : 'Guest'}}</a>
-            </li>
-            <!-- posts link -->
-            <li class="nav-item d-none d-sm-inline-block">
-                <a class="nav-link" href="#">Articles</a>
-            </li>
-            <!-- See profile link  -->
-            <li class="nav-item d-none d-sm-inline-block">
-                <a class="nav-link" href="#">Profil</a>
-            </li>
+
+            @canany(['isAdmin', 'isStudent'], auth()->user())
+                <!-- Username -->
+                <li class="nav-item d-none d-sm-inline-block">
+                    {{-- <a class="navbar-brand" href="{{route("public.dashboard")}}">{{Auth::user() ? Auth::user()->username : 'Guest'}}</a> --}}
+                </li>
+                <!-- posts link -->
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a class="nav-link" href="{{route('articles.index')}}">Articles</a>
+                </li>
+                <!-- See profile link  -->
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a class="nav-link" href="#">Profil</a>
+                </li>
+            @endcanany
+           
             <!-- logout   -->
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="{{route("logout")}}" class="nav-link">Se déconnecter</a>
             </li>
-            <!-- Messages Dropdown Menu -->
-            <li class="nav-item dropdown">
+
+            @canany(['isAdmin', 'isStudent'], auth()->user())
+               <!-- Messages Dropdown Menu -->
+               <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-comments"></i>
                     <span class="badge badge-danger navbar-badge">3</span>
@@ -152,6 +165,8 @@
                     <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>
             </li>
+        @endcanany
+         
         @else
             <!-- login   -->
             <li class="nav-item d-none d-sm-inline-block">

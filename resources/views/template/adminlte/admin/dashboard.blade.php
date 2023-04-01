@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'student dashboard')
+@section('title', 'admin dashboard')
 @section('content')
     <div class="content-header">
         <div class="container-fluid">
@@ -18,8 +18,20 @@
     <div class="content">
         <div class="row">
             <div class="col-lg-3 col-6">
-              Student Dashboard
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>{{ $count }}</h3>
+                        <p>Étudiants</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+                    <a href="{{ route('admin.etudiant.index') }}" class="small-box-footer">Consulter la liste <i
+                            class="fas fa-arrow-circle-right"></i></a>
+                </div>
             </div>
         </div>
+
     </div>
+  
 @endsection

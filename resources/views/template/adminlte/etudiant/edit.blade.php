@@ -22,7 +22,7 @@
         <div class="col-md-6 mx-auto mt-5 mb-5">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Moddifier un étudiant</h3>
+                    <h3 class="card-title">Mise à jour du profil étudiant</h3>
                 </div>
                 <form action="{{route('etudiant.update', $etudiant->id)}}" method="post">
                     @method('PUT')
