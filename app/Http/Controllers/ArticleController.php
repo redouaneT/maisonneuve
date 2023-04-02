@@ -15,7 +15,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        $articles = Article::SimplePaginate(10);
         return view('template/adminlte/articles.index', ['articles' => $articles]);
     }
 

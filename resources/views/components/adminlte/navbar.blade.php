@@ -60,6 +60,10 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     {{-- <a class="navbar-brand" href="{{route("public.dashboard")}}">{{Auth::user() ? Auth::user()->username : 'Guest'}}</a> --}}
                 </li>
+                <!-- Documents link -->
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a class="nav-link" href="{{route('documents.index')}}">Documents</a>
+                </li>
                 <!-- posts link -->
                 <li class="nav-item d-none d-sm-inline-block">
                     <a class="nav-link" href="{{route('articles.index')}}">Articles</a>

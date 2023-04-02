@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\auth\CustomAuthController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\DocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,3 +63,7 @@ Route::get('logout', [CustomAuthController::class, 'logout'])->name('logout')->m
 
 Route::resource('articles', ArticleController::class)->middleware('auth');
 Route::get('/my-articles', [App\Http\Controllers\ArticleController::class, 'myArticles'])->name('articles.my')->middleware('auth');
+
+// CRUD routes for Documents
+Route::resource('documents', DocumentController::class)->middleware('auth');
+Route::get('documents/{document}', [DocumentController::class, 'download'])->name('documents.download')->middleware('auth');

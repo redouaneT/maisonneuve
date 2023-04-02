@@ -117,9 +117,4 @@
         </div>
     </div>
 
-    @push('scripts')
-        <!-- Datepicker JS -->
-        <script src="{{ asset('dist/js/bootstrap-datepicker.min.js') }}"></script>
-    @endpush
-
 @endsection

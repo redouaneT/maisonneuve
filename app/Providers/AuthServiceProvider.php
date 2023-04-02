@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Article;
+use App\Models\Document;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -36,6 +37,11 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('update-article', function ($user, Article $article) {
             return $user->id === $article->user_id;
+        });
+
+        Gate::define('update-document', function ($user, Document $document) {
+            // dd($user->id, $document->user_id);
+            return $user->id === $document->user_id;
         });
     }
 }

@@ -77,8 +77,33 @@
                 <li class="nav-item">
                     <a href="{{route('articles.my')}}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Voir mes articles</p>
+                        <p>Mes articles</p>
                     </a>
+                </li>
+                </ul>
+            </li>
+             <!-- Documents manager -->
+             <li class="nav-item menu-open">
+                <a href="#" class="nav-link active">
+
+                <i class="nav-icon fas fa-graduation-cap"></i>
+                <p>
+                    Documents
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+                </a>
+                <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{route('documents.create')}}" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Partager un fichier</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    {{-- <a href="{{route('documents.my')}}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Mes Fichiers</p>
+                    </a> --}}
                 </li>
                 </ul>
             </li>

@@ -48,19 +48,35 @@ class User extends Authenticatable
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
 
+    /**
+     * define the relationship between user and etudiant
+     */
     public function etudiant()
     {
         return $this->hasOne(Etudiant::class, 'user_id');
     }
 
+    /**
+     * define the relationship between user and role
+     */
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
-
+    /**
+     * define the relationship between user and article
+     */
     public function articles()
     {
         return $this->hasMany(Article::class);
+    }
+
+    /**
+     * define the relationship between user and document
+     */
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
     }
 
 }
