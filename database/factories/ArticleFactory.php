@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Article;
 use App\Models\User;
+use App\Models\Language;
 
 class ArticleFactory extends Factory
 {
@@ -27,6 +28,9 @@ class ArticleFactory extends Factory
             'content' => $this->faker->paragraphs(3, true),
             'user_id' => function() {
                 return User::inRandomOrder()->first()->id;
+            },
+            'language_id' => function() {
+                return Language::inRandomOrder()->first()->id;
             },
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'updated_at' => $this->faker->dateTimeBetween('-1 year', 'now'),

@@ -19,7 +19,6 @@ class EtudiantFactory extends Factory
             'nom' => $this->faker->firstName(),
             'adresse' => $this->faker->address(),
             'phone' => $this->faker->phoneNumber(),
-            'email' => $this->faker->unique()->safeEmail(),
             'date_de_naissance' => $this->faker->date(),
             'ville_id' => function() {
                 return Ville::inRandomOrder()->first()->id;

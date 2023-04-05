@@ -13,13 +13,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Profile</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Etudiant</a></li>
-                        <li class="breadcrumb-item active">Profile étudiant</li>
-                    </ol>
+                    <h1>@lang('students.admin_show_title')</h1>
                 </div>
             </div>
         </div>
@@ -35,30 +29,30 @@
                                     src="{{ asset('adminlte/dist/img/user4-128x128.jpg') }}" alt="User profile picture">
                             </div>
                             <h3 class="profile-username text-center">{{ $etudiant->nom }}</h3>
-                            <p class="text-muted text-center">Étudiant</p>
+                            <p class="text-muted text-center">@lang('students.show')</p>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Courriel</b> <a class="float-right">{{ $etudiant->email }}</a>
+                                    <b>@lang('students.show_email')</b> <a class="float-right">{{ $etudiant->user->email }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Adresse</b> <a class="float-right">{{ $etudiant->adresse }}</a>
+                                    <b>@lang('students.show_address')</b> <a class="float-right">{{ $etudiant->adresse }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Téléphone</b> <a class="float-right">{{ $etudiant->phone }}</a>
+                                    <b>@lang('students.show_phone')</b> <a class="float-right">{{ $etudiant->phone }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>naissance</b> <a class="float-right">{{ $etudiant->date_de_naissance }}</a>
+                                    <b>@lang('students.show_birth')</b> <a class="float-right">{{ $etudiant->date_de_naissance }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Ville</b> <a class="float-right">{{ $etudiant->ville->nom }}</a>
+                                    <b>@lang('students.show_city')</b> <a class="float-right">{{ $etudiant->ville->nom }}</a>
                                 </li>
                             </ul>
                             <a href="{{ route('admin.etudiant.edit', $etudiant->id) }}"
-                                class="btn btn-primary btn-block mb-1"><b>Moddifier</b></a>
+                                class="btn btn-primary btn-block mb-1"><b>@lang('buttons.edit')</b></a>
                             <form action="{{ route('admin.etudiant.delete', $etudiant->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-primary btn-danger btn-block"><b>Spprimer</b></button>
+                                <button type="submit" class="btn btn-primary btn-danger btn-block"><b>@lang('buttons.delete')</b></button>
                             </form>
                         </div>
                     </div>

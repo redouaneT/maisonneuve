@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{route("home")}}" class="brand-link">
 
       <img src="{{asset('adminlte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
       
@@ -17,11 +17,11 @@
           <img src="{{asset('adminlte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-            {{-- @if (Auth::check() && Auth::user()->hasRole('admin'))
-                <a class="navbar-brand d-block" href="{{route("admin.home")}}">{{Auth::user() ? Auth::user()->username : 'Guest'}}</a>
+            @can('isAdmin', auth()->user())
+            <a class="navbar-brand d-block" href="{{route("admin.home")}}">{{Auth::user()->username}}</a>
             @else
-                <a class="navbar-brand d-block" href="{{route("student.home")}}">{{Auth::user() ? Auth::user()->username : 'Guest'}}</a>
-            @endif --}}
+            <a class="navbar-brand d-block" href="{{route("home")}}">{{Auth::user()->username}}</a>
+            @endcan
         </div>
       </div>
   
@@ -37,7 +37,7 @@
 
                     <i class="nav-icon fas fa-graduation-cap"></i>
                     <p>
-                        Gestion des étudiants
+                        @lang('navigation.student_manage')
                         <i class="right fas fa-angle-left"></i>
                     </p>
                     </a>
@@ -45,13 +45,13 @@
                     <li class="nav-item">
                         <a href="{{route('admin.etudiant.index')}}" class="nav-link active">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Liste des étudiants</p>
+                        <p> @lang('navigation.student_list')</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('admin.etudiant.create')}}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Ajouter un étudiants</p>
+                        <p> @lang('navigation.student_add')</p>
                         </a>
                     </li>
                     </ul>
@@ -63,7 +63,7 @@
 
                 <i class="nav-icon fas fa-graduation-cap"></i>
                 <p>
-                    Gestion des articles
+                    @lang('navigation.article_manage')
                     <i class="right fas fa-angle-left"></i>
                 </p>
                 </a>
@@ -71,13 +71,13 @@
                 <li class="nav-item">
                     <a href="{{route('articles.create')}}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Rédiger un article</p>
+                    <p>  @lang('navigation.article_add')</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{route('articles.my')}}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Mes articles</p>
+                        <p> @lang('navigation.article_my')</p>
                     </a>
                 </li>
                 </ul>
@@ -88,23 +88,17 @@
 
                 <i class="nav-icon fas fa-graduation-cap"></i>
                 <p>
-                    Documents
+                    @lang('navigation.documents')
                     <i class="right fas fa-angle-left"></i>
                 </p>
                 </a>
                 <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="{{route('documents.create')}}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Partager un fichier</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    {{-- <a href="{{route('documents.my')}}" class="nav-link">
+                    <li class="nav-item">
+                        <a href="{{route('documents.create')}}" class="nav-link active">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Mes Fichiers</p>
-                    </a> --}}
-                </li>
+                        <p> @lang('navigation.file_add')</p>
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>

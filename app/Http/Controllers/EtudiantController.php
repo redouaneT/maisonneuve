@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class EtudiantController extends Controller
 {
@@ -63,7 +64,7 @@ class EtudiantController extends Controller
             $user->save();
         }
     
-        return redirect(route('home'));
+        return redirect(route('home'))->withSuccess("@lang('students.confirmation_add')");
     }
     
 
@@ -73,8 +74,9 @@ class EtudiantController extends Controller
      * @param  \App\Models\Etudiant  $etudiant
      * @return \Illuminate\Http\Response
      */
-    public function show(Etudiant $etudiant)
+    public function show($id)
     {
+        $etudiant = Etudiant::where('user_id', $id)->first();
         return view('template/adminlte/etudiant/show', ['etudiant' => $etudiant]);
     }
 
@@ -99,20 +101,25 @@ class EtudiantController extends Controller
      */
     public function update(Request $request, Etudiant $etudiant)
     {
+
         $request->validate([
             'nom' => 'required|max:30',
-            'email' => 'required|email|unique:etudiants',
+            'email' => 'required|email',
             'phone' => 'required',
             'date_de_naissance' => 'required|date',
             'adresse' => 'required',
             'ville_id' => 'required|integer',
         ]);
+     
 
-        $etudiant->fill($request->all());
+        $etudiant->fill($request->except('email'));
+        $etudiant->user()->update(['email' => $request->email]);
 
         $etudiant->update();
 
-        return redirect(route('etudiant.show', $etudiant))->withSuccess("Les modifications ont été bien appliquées");
+     
+
+        return redirect(route('etudiant.show', $etudiant->user->id))->withSuccess(__("students.confirmation_update"));
     }
 
     /**
@@ -124,6 +131,6 @@ class EtudiantController extends Controller
     public function destroy(Etudiant $etudiant)
     {
         $etudiant->delete();
-        return redirect(route('etudiant.index'))->withSuccess("L'étudiant a bien été supprimer");
+        return redirect(route('logout'))->withSuccess("@lang('students.confirmation_delete')");
     }
 }

@@ -12,27 +12,27 @@
 
         <li class="nav-item d-none d-sm-inline-block">
             @can('isAdmin', auth()->user())
-                <a href="{{ route('admin.home') }}" class="nav-link">Home</a>
+                <a href="{{ route('admin.home') }}" class="nav-link">@lang('navigation.home')</a>
             @elsecan('isStudent', auth()->user())
-                <a href="{{ route('home') }}" class="nav-link">Home</a>
+                <a href="{{ route('home') }}" class="nav-link">@lang('navigation.home')</a>
             @endcan
         </li>
             
 
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Contact</a>
+            <a href="#" class="nav-link">@lang('navigation.contact')</a>
         </li>
      
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Help
+                @lang('navigation.help')
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                <a class="dropdown-item" href="#">FAQ</a>
-                <a class="dropdown-item" href="#">Support</a>
+                <a class="dropdown-item" href="#">@lang('navigation.faq')</a>
+                <a class="dropdown-item" href="#">@lang('navigation.support')</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Contact</a>
+                <a class="dropdown-item" href="#">@lang('navigation.contact')</a>
             </div>
         </li>
     </ul>
@@ -41,7 +41,7 @@
         <!-- SEARCH FORM -->
         <form class="form-inline ml-3">
             <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control form-control-navbar" type="search" placeholder="@lang('navigation.search')" aria-label="Search">
                 <div class="input-group-append">
                     <button class="btn btn-navbar" type="submit">
                         <i class="fas fa-search"></i>
@@ -62,21 +62,21 @@
                 </li>
                 <!-- Documents link -->
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a class="nav-link" href="{{route('documents.index')}}">Documents</a>
+                    <a class="nav-link" href="{{route('documents.index')}}">@lang('navigation.documents')</a>
                 </li>
                 <!-- posts link -->
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a class="nav-link" href="{{route('articles.index')}}">Articles</a>
+                    <a class="nav-link" href="{{route('articles.index')}}">@lang('navigation.articles')</a>
                 </li>
                 <!-- See profile link  -->
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a class="nav-link" href="#">Profil</a>
+                    <a class="nav-link" href="{{route('etudiant.show', ['etudiant'=> auth()->user()->id])}}">@lang('navigation.profil')</a>
                 </li>
             @endcanany
            
             <!-- logout   -->
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{route("logout")}}" class="nav-link">Se déconnecter</a>
+                <a href="{{route("logout")}}" class="nav-link">@lang('navigation.logout')</a>
             </li>
 
             @canany(['isAdmin', 'isStudent'], auth()->user())
@@ -152,36 +152,33 @@
                     <span class="dropdown-header">15 Notifications</span>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item">
-                        <i class="fas fa-envelope mr-2"></i> 4 new messages
+                        <i class="fas fa-envelope mr-2"></i> 4 nouveaux messages
                         <span class="float-right text-muted text-sm">3 mins</span>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item">
-                        <i class="fas fa-users mr-2"></i> 8 friend requests
-                        <span class="float-right text-muted text-sm">12 hours</span>
+                        <i class="fas fa-users mr-2"></i> 8 demande d'amis
+                        <span class="float-right text-muted text-sm">12 heures</span>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item">
-                        <i class="fas fa-file mr-2"></i> 3 new reports
-                        <span class="float-right text-muted text-sm">2 days</span>
+                        <i class="fas fa-file mr-2"></i> 3 nouveaux reports
+                        <span class="float-right text-muted text-sm">2 jours</span>
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                    <a href="#" class="dropdown-item dropdown-footer">Voir toutes les notifications</a>
                 </div>
             </li>
         @endcanany
-         
         @else
             <!-- login   -->
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{route("login")}}" class="nav-link">Se connecter</a>
+                <a href="{{route("login")}}" class="nav-link">@lang('navigation.login')</a>
             </li>
         @endif
-   
-   
-        <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i
-                    class="fas fa-th-large"></i></a>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="{{ route('lang.switch', 'en')}}">EN</a>
+            <a href="{{ route('lang.switch', 'fr') }}">FR</a>
         </li>
     </ul>
 </nav>

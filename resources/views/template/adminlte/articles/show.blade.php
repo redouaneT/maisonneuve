@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Voir un article</h1>
+                <h1 class="m-0">@lang('articles.show_page_title')</h1>
             </div>
         </div>
     </div>
@@ -20,11 +20,11 @@
             </div>
             <div class="card-body">
                 <p style="max-width: 85ch;">{{ $article->content }}</p>
-                <p><strong>Date de publication:</strong> {{ $article->created_at }}</p>
-                <p><strong>Auteur:</strong> {{ $article->user->username }}</p>
+                <p><strong>@lang('articles.show_published_date'):</strong> {{ $article->created_at }}</p>
+                <p><strong>@lang('articles.show_author'):</strong> {{ $article->user->username }}</p>
             </div>
             <div class="card-footer">
-                <a href="{{ route('articles.index') }}" class="btn btn-primary btn-sm">Retour à la liste des articles</a>
+                <a href="{{ route('articles.index') }}" class="btn btn-primary btn-sm">@lang('navigation.link_back_articles')</a>
                 @if (Gate::allows('update-article', $article))
                                          
                     <a href="{{ route('articles.edit', $article) }}" class="btn btn-warning btn-sm">Modifier</a>

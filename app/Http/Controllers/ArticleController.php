@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
+use App\Models\Language;
+
 
 class ArticleController extends Controller
 {
@@ -15,7 +18,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::SimplePaginate(10);
+        $currentLocale = \Illuminate\Support\Facades\App::getLocale();
+        $language = Language::where('code', $currentLocale)->first();
+        $articles = Article::where('language_id', $language->id)->SimplePaginate(10);
         return view('template/adminlte/articles.index', ['articles' => $articles]);
     }
 
@@ -41,9 +46,15 @@ class ArticleController extends Controller
             'title' => 'required|max:255',
             'content' => 'required',
         ]);
+     
+        $currentLocale = \Illuminate\Support\Facades\App::getLocale();
+        $language = Language::where('code', $currentLocale)->first();
+
+      
 
         $article = new Article($request->all());
         $article->user_id = Auth::user()->id;
+        $article->language_id = $language->id;
         $article->save();
 
         return redirect(route('articles.index'))->with('success', 'Article created successfully');

@@ -7,6 +7,9 @@ use App\Models\Ville;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Role;
 
 class EtudiantController extends Controller
 {
@@ -40,21 +43,34 @@ class EtudiantController extends Controller
      */
     public function store(Request $request)
     {
+    
         $request->validate([
             'nom' => 'required|max:30',
             'phone' => 'required',
             'date_de_naissance' => 'required|date',
             'adresse' => 'required',
             'ville_id' => 'required|integer',
+            'username' => 'required|unique:users',
+            'email' => 'required|email|unique:users',
+            'password' => 'min:6|max:20|confirmed',
+            "password_confirmation" => "required|min:6|max:20"
         ]);
 
-        $request['user_id'] = Auth::user()->id;
+        
+
+        // extract signup informations from the request
+        $user = new User;
+        $request['role_id'] = Role::where('name', 'student');
+        $user->fill($request->only(['username', 'email', 'password', 'role_id']));
+        $user->password = Hash::make($request->password);
+        $user->save();
    
         $etudiant = new Etudiant;
-        $etudiant->fill($request->all());
+        $request['user_id'] = $user->id;
+        $etudiant->fill($request->only(['nom', 'phone', 'date_de_naissance', 'adresse', 'ville_id', 'user_id']));
         $etudiant->save();
 
-        return redirect(route('admin.etudiant.show', $etudiant->id))->withSuccess("L'étudiant a bien été ajouté");
+        return redirect(route('admin.etudiant.show', $etudiant->id))->withSuccess("@lang('students.confirmation_add')");
     }
 
     /**
@@ -107,7 +123,7 @@ class EtudiantController extends Controller
 
         $etudiant->update();
 
-        return redirect(route('admin.etudiant.show', $etudiant))->withSuccess("L'étudiant a bien été modifié");
+        return redirect(route('admin.etudiant.show', $etudiant))->withSuccess("@lang('students.confirmation_update')");
     }
 
     /**
@@ -119,6 +135,6 @@ class EtudiantController extends Controller
     public function destroy(Etudiant $etudiant)
     {
         $etudiant->delete();
-        return redirect(route('admin.etudiant.index'))->withSuccess("L'étudiant a bien été supprimer");
+        return redirect(route('admin.etudiant.index'))->withSuccess("@lang('students.confirmation_delete')");
     }
 }

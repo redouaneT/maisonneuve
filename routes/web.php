@@ -49,12 +49,15 @@ Route::get('/etudiant/create', [EtudiantController::class, 'create'])->name('etu
 Route::post('/etudiant/create', [EtudiantController::class, 'store'])->name('etudiant.store')->middleware('auth');
 Route::get('etudiant/edit/{etudiant}', [EtudiantController::class, 'edit'])->name('etudiant.edit')->middleware('auth');
 Route::put('etudiant/edit/{etudiant}', [EtudiantController::class, 'update'])->name('etudiant.update')->middleware('auth'); // Modification de profil étudiant
-route::get('/etudiant/show/{etudiant}', [EtudiantController::class, 'show'])->name('etudiant.show')->middleware('auth'); // Consultation de profil étudiant
+Route::get('/etudiant/show/{etudiant}', [EtudiantController::class, 'show'])->name('etudiant.show')->middleware('auth');
+ // Consultation de profil étudiant
+Route::post('/etudiant/delete/{etudiant}', [EtudiantController::class, 'delete'])->name('etudiant.delete')->middleware('auth');
+ // Suppression de profil étudiant
 
 // Auth::routes();
 
 Route::get('registration', [CustomAuthController::class, 'create'])->name('user.registration');
-Route::post('registration', [CustomAuthController::class, 'store']);
+Route::post('registration', [CustomAuthController::class, 'store'])->name('user.registration');
 Route::get('login', [CustomAuthController::class, 'index'])->name('login');
 Route::post('login', [CustomAuthController::class, 'authentication']);
 Route::get('logout', [CustomAuthController::class, 'logout'])->name('logout')->middleware('auth');
@@ -67,3 +70,7 @@ Route::get('/my-articles', [App\Http\Controllers\ArticleController::class, 'myAr
 // CRUD routes for Documents
 Route::resource('documents', DocumentController::class)->middleware('auth');
 Route::get('documents/{document}', [DocumentController::class, 'download'])->name('documents.download')->middleware('auth');
+
+// Language switcher
+Route::get('/lang/{locale}', [App\Http\Controllers\LanguageController::class, 'switch'])->name('lang.switch');
+

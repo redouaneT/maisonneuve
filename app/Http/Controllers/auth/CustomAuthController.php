@@ -38,7 +38,6 @@ class CustomAuthController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'username' => 'required|unique:users',
             'email' => 'required|email|unique:users',
@@ -52,17 +51,16 @@ class CustomAuthController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        // Log in the user
-        Auth::login($user);
-
         // Check the user's role and redirect to the appropriate route
         if ($user->role !== null) {
             if ($user->role->name === 'admin') {
-                // Redirect the admin user to the admin dashboard
-                return redirect(route('admin.student.index'))->withSuccess("L'utilisateur a bien été ajouté");
+                return redirect(route('admin.dashboard'));
             } 
         }
 
+        // Log in the user
+        Auth::login($user);
+        
         // Redirect the user without a role to a default route
         return redirect(route('etudiant.create'));
     }

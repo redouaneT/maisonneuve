@@ -10,7 +10,7 @@
         </div>
         <div class="card">
             <div class="card-body signup-card-body">
-                <p class="signup-box-msg">Créer un nouveau compte</p>
+                <p class="signup-box-msg">@lang('auth.signup_info')</p>
                 <form action="{{ route('user.registration') }}" method="post">
                     @csrf
                     @if(session('success'))
@@ -22,7 +22,7 @@
 
                     <div class="d-flex flex-column  mb-3">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="username" placeholder="Username" value="{{ old('username') }}">
+                            <input type="text" class="form-control" name="username" placeholder="@lang('auth.username_label')" value="{{ old('username') }}">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope"></span>
@@ -37,7 +37,7 @@
                     </div>
                     <div class="d-flex flex-column  mb-3">
                         <div class="input-group">
-                            <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
+                            <input type="email" class="form-control" name="email" placeholder="@lang('auth.email_label')" value="{{ old('email') }}">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope"></span>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="d-flex flex-column  mb-3">
                         <div class="input-group ">
-                            <input type="password" class="form-control" name="password" placeholder="Mot de passe">
+                            <input type="password" class="form-control" name="password" placeholder="@lang('auth.password_label')">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
@@ -67,7 +67,7 @@
                     </div>
                     <div class="d-flex flex-column  mb-3">
                         <div class="input-group mb-3">
-                            <input type="password" class="form-control" name="password_confirmation" placeholder="Confirmer le mot de passe">
+                            <input type="password" class="form-control" name="password_confirmation" placeholder="@lang('auth.confirm_password_label')">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
@@ -81,11 +81,11 @@
                         @endif
                     </div>
                     <div class="row">
-                        <button type="submit" class="btn btn-primary btn-block my-2">S'inscrire</button>
+                        <button type="submit" class="btn btn-primary btn-block my-2">@lang('buttons.signup')</button>
                     </div>
                 </form>
                 <p class="mb-0">
-                    <a href="{{ route('login') }}" class="text-center">J'ai déjà un compte</a>
+                    <a href="{{ route('login') }}" class="text-center">@lang('auth.already_signup')</a>
                 </p>
             </div>
         </div>
